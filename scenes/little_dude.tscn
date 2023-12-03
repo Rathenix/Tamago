@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://brblhmvx3c0pe"]
+
+[ext_resource type="Script" path="res://scripts/little_dude.gd" id="1_tfdoa"]
+
+[node name="LittleDude" type="Node" groups=["Dude"]]
+script = ExtResource("1_tfdoa")

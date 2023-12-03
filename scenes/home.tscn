@@ -1,0 +1,342 @@
+[gd_scene load_steps=8 format=3 uid="uid://fpyxg516qe58"]
+
+[ext_resource type="Script" path="res://scripts/home.gd" id="1_23onn"]
+[ext_resource type="Texture2D" uid="uid://bo5ohefbqu77s" path="res://images/gradient-backdrop.png" id="2_f7ubb"]
+[ext_resource type="Texture2D" uid="uid://bauvqdg0xle7c" path="res://images/littleDude.png" id="3_smouh"]
+[ext_resource type="Texture2D" uid="uid://l1nj4hhxdlab" path="res://images/300x600-white-rect.png" id="4_71hj2"]
+[ext_resource type="Texture2D" uid="uid://cwrmbev43hp1j" path="res://images/300x600-black-rect.png" id="5_unrjk"]
+
+[sub_resource type="Animation" id="Animation_dbym0"]
+resource_name = "idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0872665, 0.0, -0.0872665, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g0hpm"]
+_data = {
+"idle": SubResource("Animation_dbym0")
+}
+
+[node name="Home" type="Node2D"]
+script = ExtResource("1_23onn")
+
+[node name="Gradient-backdrop" type="Sprite2D" parent="."]
+position = Vector2(201, 400)
+scale = Vector2(0.483092, 0.446429)
+texture = ExtResource("2_f7ubb")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(208, 355)
+scale = Vector2(3.318, 3.133)
+skew = -0.0785399
+texture = ExtResource("3_smouh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+libraries = {
+"": SubResource("AnimationLibrary_g0hpm")
+}
+
+[node name="300x600-white-rect" type="Sprite2D" parent="."]
+position = Vector2(201.75, 565)
+scale = Vector2(0.5975, 0.356667)
+texture = ExtResource("4_71hj2")
+
+[node name="300x600-white-rect2" type="Sprite2D" parent="."]
+position = Vector2(203, 61.5)
+scale = Vector2(0.625, 0.17)
+texture = ExtResource("4_71hj2")
+
+[node name="300x600-white-rect3" type="Sprite2D" parent="."]
+position = Vector2(203.05, 702.75)
+scale = Vector2(0.593167, 0.5)
+texture = ExtResource("4_71hj2")
+
+[node name="NameLabel" type="RichTextLabel" parent="."]
+offset_left = 23.0
+offset_top = 38.0
+offset_right = 200.0
+offset_bottom = 78.0
+bbcode_enabled = true
+text = "[color=black]Test[/color]
+"
+
+[node name="BirthdayLabel" type="RichTextLabel" parent="."]
+offset_left = 221.0
+offset_top = 39.0
+offset_right = 398.0
+offset_bottom = 89.0
+bbcode_enabled = true
+text = "[color=black]Birthday[/color]
+"
+
+[node name="SizeLabel" type="RichTextLabel" parent="."]
+offset_left = 23.0
+offset_top = 59.0
+offset_right = 200.0
+offset_bottom = 99.0
+bbcode_enabled = true
+text = "[color=black]Size[/color]
+"
+
+[node name="EnergyLabel" type="RichTextLabel" parent="."]
+offset_left = 35.0
+offset_top = 520.0
+offset_right = 212.0
+offset_bottom = 560.0
+bbcode_enabled = true
+text = "[color=black]Energy[/color]
+"
+
+[node name="LoyaltyLabel" type="RichTextLabel" parent="."]
+offset_left = 35.0
+offset_top = 580.0
+offset_right = 212.0
+offset_bottom = 620.0
+bbcode_enabled = true
+text = "[color=black]Loyalty[/color]
+"
+
+[node name="MoodLabel" type="RichTextLabel" parent="."]
+offset_left = 35.0
+offset_top = 540.0
+offset_right = 212.0
+offset_bottom = 580.0
+bbcode_enabled = true
+text = "[color=black]Mood[/color]
+"
+
+[node name="WellnessLabel" type="RichTextLabel" parent="."]
+offset_left = 35.0
+offset_top = 560.0
+offset_right = 212.0
+offset_bottom = 600.0
+bbcode_enabled = true
+text = "[color=black]Wellness[/color]
+"
+
+[node name="BattleButton" type="Button" parent="."]
+offset_left = 30.0
+offset_top = 635.0
+offset_right = 200.0
+offset_bottom = 700.0
+text = "Battle"
+
+[node name="TrainingButton" type="Button" parent="."]
+offset_left = 205.0
+offset_top = 635.0
+offset_right = 375.0
+offset_bottom = 700.0
+text = "Training"
+
+[node name="QuestsButton" type="Button" parent="."]
+offset_left = 30.0
+offset_top = 705.0
+offset_right = 200.0
+offset_bottom = 770.0
+text = "Quests"
+
+[node name="GamesButton" type="Button" parent="."]
+offset_left = 205.0
+offset_top = 705.0
+offset_right = 375.0
+offset_bottom = 770.0
+text = "Games"
+
+[node name="BattleStats" type="Node2D" parent="."]
+visible = false
+
+[node name="BattleStatsBackground" type="Sprite2D" parent="BattleStats"]
+modulate = Color(1, 1, 1, 0.737255)
+position = Vector2(204, 359.625)
+scale = Vector2(0.4275, 0.855833)
+texture = ExtResource("4_71hj2")
+
+[node name="CloseBattleStatsButton" type="Button" parent="BattleStats"]
+offset_left = 308.0
+offset_top = 221.0
+offset_right = 343.0
+offset_bottom = 256.0
+text = "X"
+
+[node name="HpLabel" type="RichTextLabel" parent="BattleStats"]
+offset_left = 100.0
+offset_top = 250.0
+offset_right = 277.0
+offset_bottom = 290.0
+bbcode_enabled = true
+text = "[color=black]HP[/color]
+"
+
+[node name="AttackLabel" type="RichTextLabel" parent="BattleStats"]
+offset_left = 100.0
+offset_top = 290.0
+offset_right = 277.0
+offset_bottom = 330.0
+bbcode_enabled = true
+text = "[color=black]Attack[/color]
+"
+
+[node name="DefenseLabel" type="RichTextLabel" parent="BattleStats"]
+offset_left = 100.0
+offset_top = 310.0
+offset_right = 277.0
+offset_bottom = 350.0
+bbcode_enabled = true
+text = "[color=black]Defense[/color]
+"
+
+[node name="MindLabel" type="RichTextLabel" parent="BattleStats"]
+offset_left = 100.0
+offset_top = 330.0
+offset_right = 277.0
+offset_bottom = 370.0
+bbcode_enabled = true
+text = "[color=black]Mind[/color]
+"
+
+[node name="SpiritLabel" type="RichTextLabel" parent="BattleStats"]
+offset_left = 100.0
+offset_top = 350.0
+offset_right = 277.0
+offset_bottom = 390.0
+bbcode_enabled = true
+text = "[color=black]Spirit[/color]
+"
+
+[node name="SkillLabel" type="RichTextLabel" parent="BattleStats"]
+offset_left = 100.0
+offset_top = 370.0
+offset_right = 277.0
+offset_bottom = 410.0
+bbcode_enabled = true
+text = "[color=black]Skill[/color]
+"
+
+[node name="SpeedLabel" type="RichTextLabel" parent="BattleStats"]
+offset_left = 100.0
+offset_top = 390.0
+offset_right = 277.0
+offset_bottom = 430.0
+bbcode_enabled = true
+text = "[color=black]Speed[/color]
+"
+
+[node name="Training" type="Node2D" parent="."]
+visible = false
+
+[node name="TrainingBackground" type="Sprite2D" parent="Training"]
+modulate = Color(1, 1, 1, 0.737255)
+position = Vector2(204, 359.625)
+scale = Vector2(0.4275, 0.855833)
+texture = ExtResource("5_unrjk")
+
+[node name="CloseTrainingButton" type="Button" parent="Training"]
+offset_left = 308.0
+offset_top = 221.0
+offset_right = 343.0
+offset_bottom = 256.0
+text = "X"
+
+[node name="TrainHPCheckBox" type="CheckBox" parent="Training"]
+offset_left = 85.0
+offset_top = 270.0
+offset_right = 135.0
+offset_bottom = 301.0
+scale = Vector2(1.5, 1.5)
+text = "HP"
+
+[node name="TrainAttackCheckBox" type="CheckBox" parent="Training"]
+offset_left = 85.0
+offset_top = 310.0
+offset_right = 163.0
+offset_bottom = 341.0
+scale = Vector2(1.5, 1.5)
+text = "Attack"
+
+[node name="TrainDefenseCheckBox" type="CheckBox" parent="Training"]
+offset_left = 85.0
+offset_top = 350.0
+offset_right = 177.0
+offset_bottom = 381.0
+scale = Vector2(1.5, 1.5)
+text = "Defense"
+
+[node name="TrainMindCheckBox" type="CheckBox" parent="Training"]
+offset_left = 85.0
+offset_top = 390.0
+offset_right = 153.0
+offset_bottom = 421.0
+scale = Vector2(1.5, 1.5)
+text = "Mind"
+
+[node name="TrainSpiritCheckBox" type="CheckBox" parent="Training"]
+offset_left = 215.0
+offset_top = 270.0
+offset_right = 284.0
+offset_bottom = 301.0
+scale = Vector2(1.5, 1.5)
+text = "Spirit"
+
+[node name="TrainSkillCheckBox" type="CheckBox" parent="Training"]
+offset_left = 215.0
+offset_top = 310.0
+offset_right = 275.0
+offset_bottom = 341.0
+scale = Vector2(1.5, 1.5)
+text = "Skill"
+
+[node name="TrainSpeedCheckBox" type="CheckBox" parent="Training"]
+offset_left = 215.0
+offset_top = 350.0
+offset_right = 291.0
+offset_bottom = 381.0
+scale = Vector2(1.5, 1.5)
+text = "Speed"
+
+[node name="HeaderLabel" type="RichTextLabel" parent="Training"]
+offset_left = 159.0
+offset_top = 245.0
+offset_right = 266.0
+offset_bottom = 285.0
+text = "Train Which?"
+
+[node name="CostLabel" type="RichTextLabel" parent="Training"]
+offset_left = 88.0
+offset_top = 442.0
+offset_right = 265.0
+offset_bottom = 482.0
+bbcode_enabled = true
+text = "[color=white]This will cost 0 Energy[/color]"
+
+[node name="StartTainingButton" type="Button" parent="Training"]
+offset_left = 264.0
+offset_top = 430.0
+offset_right = 318.0
+offset_bottom = 478.0
+text = "OK?"
+
+[connection signal="pressed" from="BattleButton" to="." method="_on_battle_button_pressed"]
+[connection signal="pressed" from="TrainingButton" to="." method="_on_training_button_pressed"]
+[connection signal="pressed" from="QuestsButton" to="." method="_on_quests_button_pressed"]
+[connection signal="pressed" from="GamesButton" to="." method="_on_games_button_pressed"]
+[connection signal="pressed" from="BattleStats/CloseBattleStatsButton" to="." method="_on_close_battle_stats_button_pressed"]
+[connection signal="pressed" from="Training/CloseTrainingButton" to="." method="_on_close_training_button_pressed"]
+[connection signal="toggled" from="Training/TrainHPCheckBox" to="." method="_on_train_hp_check_box_toggled"]
+[connection signal="toggled" from="Training/TrainAttackCheckBox" to="." method="_on_train_attack_check_box_toggled"]
+[connection signal="toggled" from="Training/TrainDefenseCheckBox" to="." method="_on_train_defense_check_box_toggled"]
+[connection signal="toggled" from="Training/TrainMindCheckBox" to="." method="_on_train_mind_check_box_toggled"]
+[connection signal="toggled" from="Training/TrainSpiritCheckBox" to="." method="_on_train_spirit_check_box_toggled"]
+[connection signal="toggled" from="Training/TrainSkillCheckBox" to="." method="_on_train_skill_check_box_toggled"]
+[connection signal="toggled" from="Training/TrainSpeedCheckBox" to="." method="_on_train_speed_check_box_toggled"]
+[connection signal="pressed" from="Training/StartTainingButton" to="." method="_on_start_taining_button_pressed"]
