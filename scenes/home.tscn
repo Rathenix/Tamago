@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://fpyxg516qe58"]
+[gd_scene load_steps=9 format=3 uid="uid://fpyxg516qe58"]
 
 [ext_resource type="Script" path="res://scripts/home.gd" id="1_23onn"]
 [ext_resource type="Texture2D" uid="uid://bo5ohefbqu77s" path="res://images/gradient-backdrop.png" id="2_f7ubb"]
 [ext_resource type="Texture2D" uid="uid://bauvqdg0xle7c" path="res://images/littleDude.png" id="3_smouh"]
 [ext_resource type="Texture2D" uid="uid://l1nj4hhxdlab" path="res://images/300x600-white-rect.png" id="4_71hj2"]
 [ext_resource type="Texture2D" uid="uid://cwrmbev43hp1j" path="res://images/300x600-black-rect.png" id="5_unrjk"]
+[ext_resource type="PackedScene" uid="uid://b5q2r7hmvyhm2" path="res://scenes/text_box.tscn" id="6_v744e"]
 
 [sub_resource type="Animation" id="Animation_dbym0"]
 resource_name = "idle"
@@ -39,7 +40,6 @@ texture = ExtResource("2_f7ubb")
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(208, 355)
 scale = Vector2(3.318, 3.133)
-skew = -0.0785399
 texture = ExtResource("3_smouh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
@@ -326,6 +326,9 @@ offset_right = 318.0
 offset_bottom = 478.0
 text = "OK?"
 
+[node name="TextBox" parent="." instance=ExtResource("6_v744e")]
+visible = false
+
 [connection signal="pressed" from="BattleButton" to="." method="_on_battle_button_pressed"]
 [connection signal="pressed" from="TrainingButton" to="." method="_on_training_button_pressed"]
 [connection signal="pressed" from="QuestsButton" to="." method="_on_quests_button_pressed"]
@@ -340,3 +343,4 @@ text = "OK?"
 [connection signal="toggled" from="Training/TrainSkillCheckBox" to="." method="_on_train_skill_check_box_toggled"]
 [connection signal="toggled" from="Training/TrainSpeedCheckBox" to="." method="_on_train_speed_check_box_toggled"]
 [connection signal="pressed" from="Training/StartTainingButton" to="." method="_on_start_taining_button_pressed"]
+[connection signal="done" from="TextBox" to="." method="_on_text_box_done"]

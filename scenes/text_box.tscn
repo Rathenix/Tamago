@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5q2r7hmvyhm2"]
+
+[ext_resource type="Script" path="res://scripts/text_box.gd" id="1_4gse1"]
+[ext_resource type="Texture2D" uid="uid://cwrmbev43hp1j" path="res://images/300x600-black-rect.png" id="1_npexp"]
+[ext_resource type="Texture2D" uid="uid://l1nj4hhxdlab" path="res://images/300x600-white-rect.png" id="2_0cdbx"]
+
+[sub_resource type="Animation" id="Animation_atwis"]
+resource_name = "flash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_llckv"]
+_data = {
+"flash": SubResource("Animation_atwis")
+}
+
+[node name="TextBox" type="Node2D"]
+script = ExtResource("1_4gse1")
+
+[node name="300x600-black-rect" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(200, 384.5)
+scale = Vector2(1, 2.87)
+texture = ExtResource("1_npexp")
+
+[node name="300x600-white-rect" type="Sprite2D" parent="."]
+position = Vector2(201, 645.5)
+scale = Vector2(0.646667, 0.956667)
+texture = ExtResource("2_0cdbx")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 33.0
+offset_top = 535.0
+offset_right = 373.0
+offset_bottom = 742.0
+bbcode_enabled = true
+text = "[color=black]This is the text box that appears when the game needs to explain something to you or describe something that is happening. Maybe it will have more text that appears after you close it, like a dialogue. Either way, there will probably be whole sentences in here.[/color]"
+
+[node name="ContinueIndicator" type="Sprite2D" parent="."]
+position = Vector2(371.625, 767.375)
+scale = Vector2(0.0354166, 0.0691664)
+texture = ExtResource("1_npexp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ContinueIndicator"]
+libraries = {
+"": SubResource("AnimationLibrary_llckv")
+}

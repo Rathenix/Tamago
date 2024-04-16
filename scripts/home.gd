@@ -12,7 +12,7 @@ func _ready():
 	sprite_animation_player.assigned_animation = "idle"
 	sprite_animation_player.play()
 	dude = DudeManager.get_active_dude()
-	dude.energy_accrued.connect(_on_dude_energy_accrued)
+	dude.dude_updated.connect(_on_dude_updated)
 	setup_dude_info()
 	battle_stats_window = $BattleStats
 	battle_stats_window.visible = false
@@ -56,104 +56,41 @@ func train():
 	for node in $Training.get_children():
 		if node is CheckBox:
 			if node.button_pressed:
-				stats_to_train.append(node)
-	for stat in stats_to_train:
-		# check energy
-		if dude.dude_energy <= 0:
-			print(dude.dude_name + " passed out from exhaustion")
-			dude.dude_energy = 0
-			dude.dude_wellness -= 1
-			dude.dude_loyalty -= 1
-			dude.dude_mood -= 1
-			break
-		else:
-			dude.dude_energy -= 1
-			# figure out which stat this is
-			var current_value
-			match stat.text:
-				"HP": 
-					print("Training HP...")
-					current_value = dude.max_hp
-				"Attack": 
-					print("Training Attack...")
-					current_value = dude.attack
-				"Defense": 
-					print("Training Defense...")
-					current_value = dude.defense
-				"Mind": 
-					print("Training Mind...")
-					current_value = dude.mind
-				"Spirit": 
-					print("Training Spirit...")
-					current_value = dude.spirit
-				"Skill": 
-					print("Training Skill...")
-					current_value = dude.skill
-				"Speed": 
-					print("Training Speed...")
-					current_value = dude.speed
-			# get level of effort based on loyalty, mood, and wellness
-			var random_chance = DudeManager.random.randi_range(-3, 6)
-			var effort = dude.dude_wellness + dude.dude_mood + dude.dude_loyalty + random_chance
-			if effort <= 0:
-				print(dude.dude_name + " didn't even try")
-			elif effort >= 1 and effort <= 2:
-				print(dude.dude_name + " phoned it in")
-			elif effort >= 3 and effort <= 4:
-				print(dude.dude_name + " gave it a shot")
-			elif effort >= 5:
-				print(dude.dude_name + " tried their best")
-			# attempt to raise the stat based on effort and current value
-			var attempt = effort + current_value
-			print("Total attempt = " + str(attempt) + "/10")
-			var success = attempt >= 10
-			# increase stat by a random amount based on success and training
-			# update dude's feelings based on success and feedback
-			if !success:
-				print(dude.dude_name + " failed the training")
-				dude.dude_mood -= 1
-			else:
-				var increase = DudeManager.random.randi_range(1, 3)
-				match stat.text:
-					"HP": 
-						dude.max_hp += increase
-					"Attack": 
-						dude.attack += increase
-					"Defense": 
-						dude.defense += increase
-					"Mind": 
-						dude.mind += increase
-					"Spirit": 
-						dude.spirit += increase
-					"Skill": 
-						dude.skill += increase
-					"Speed": 
-						dude.speed += increase
-				print(dude.dude_name + " did it! Stat went up by " + str(increase) + " and is now " + str(current_value + increase))
-				dude.dude_mood += 1
-			# ask user for feedback
-			print("Praise them?") # scale of scold to praise
-	setup_dude_info()
+				stats_to_train.append(node.text)
+	if stats_to_train.size() > 0:
+		_on_close_training_button_pressed()
+		display_text(dude.train(stats_to_train))
 
 func no_current_window():
 	return !battle_stats_window.visible \
 		and !training_window.visible
 
+func display_text(texts):
+	$BattleButton.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$TrainingButton.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$QuestsButton.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$GamesButton.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$TextBox.display_text(texts)
+
 func _on_battle_button_pressed():
 	if no_current_window():
 		battle_stats_window.visible = true
+	elif battle_stats_window.visible:
+		battle_stats_window.visible = false
 
 func _on_training_button_pressed():
 	if no_current_window():
 		training_window.visible = true
+	elif training_window.visible:
+		_on_close_training_button_pressed()
 
 func _on_quests_button_pressed():
 	if no_current_window():
-		pass
+		display_text(["Go on a quest", "Or don't. I'm not the boss of you"])
 
 func _on_games_button_pressed():
 	if no_current_window():
-		pass
+		display_text(["And this is where I would put my mini-game collection", "IF I HAD ONE!"])
 
 func _on_close_battle_stats_button_pressed():
 	battle_stats_window.visible = false
@@ -189,5 +126,11 @@ func _on_train_speed_check_box_toggled(_toggled_on):
 func _on_start_taining_button_pressed():
 	train()
 
-func _on_dude_energy_accrued():
+func _on_dude_updated():
 	setup_dude_info()
+
+func _on_text_box_done():
+	$BattleButton.mouse_filter = Control.MOUSE_FILTER_STOP
+	$TrainingButton.mouse_filter = Control.MOUSE_FILTER_STOP
+	$QuestsButton.mouse_filter = Control.MOUSE_FILTER_STOP
+	$GamesButton.mouse_filter = Control.MOUSE_FILTER_STOP
