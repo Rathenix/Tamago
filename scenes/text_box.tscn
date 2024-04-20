@@ -56,3 +56,21 @@ texture = ExtResource("1_npexp")
 libraries = {
 "": SubResource("AnimationLibrary_llckv")
 }
+
+[node name="LeftButton" type="Button" parent="."]
+visible = false
+offset_left = 32.0
+offset_top = 605.0
+offset_right = 192.0
+offset_bottom = 725.0
+
+[node name="RightButton" type="Button" parent="."]
+visible = false
+offset_left = 211.0
+offset_top = 604.0
+offset_right = 371.0
+offset_bottom = 724.0
+
+[connection signal="done" from="." to="." method="_on_done"]
+[connection signal="pressed" from="LeftButton" to="." method="_on_left_button_pressed"]
+[connection signal="pressed" from="RightButton" to="." method="_on_right_button_pressed"]

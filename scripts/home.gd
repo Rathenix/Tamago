@@ -86,7 +86,23 @@ func _on_training_button_pressed():
 
 func _on_quests_button_pressed():
 	if no_current_window():
-		display_text(["Go on a quest", "Or don't. I'm not the boss of you"])
+		display_text(
+			[
+				"Go on a quest?", 
+				"Or don't. I'm not the boss of you", 
+				"{
+					\"prompt_text\": \"Quest?\", 
+					\"left_button\": { 
+						\"text\": \"Yes\", 
+						\"value\": \"quest_yes\" 
+					}, 
+					\"right_button\": { 
+						\"text\": \"No\", 
+						\"value\": \"quest_no\" 
+					}
+				}"
+			]
+		)
 
 func _on_games_button_pressed():
 	if no_current_window():
@@ -134,3 +150,11 @@ func _on_text_box_done():
 	$TrainingButton.mouse_filter = Control.MOUSE_FILTER_STOP
 	$QuestsButton.mouse_filter = Control.MOUSE_FILTER_STOP
 	$GamesButton.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_text_box_prompt_pressed(value):
+	print(value)
+	match value:
+		"quest_yes":
+			display_text(["Off you go"])
+		"quest_no":
+			display_text(["Like I said, do whatever you want"])
